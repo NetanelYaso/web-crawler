@@ -1,5 +1,12 @@
 const fs = require("fs");
 const puppeteer = require("puppeteer");
+
+const browserObject = require('./browser');
+const scraperController = require('./pageController');
+
+let browserInstance = browserObject.startBrowser();
+scraperController(browserInstance)
+
 const main = (imgUrl, initialHref, depth) => {
     const images = getImages(imgUrl, initialHref, depth).flat(depth);
     console.log(images);
@@ -22,9 +29,6 @@ const getImages = (href, depth, images = [], visitedPages = {}) => {
         getImages(link, depth - 1, [...images, ...newImages], { ...visitedPages, [link]: true })
     })
 }
-
-// [[[['fooo', 'bar']]['fooo']]] => ['foo', 'bar', 'fooo']
-
 
 const saveToFile = (data) => {
     const isExist = fs.existsSync("./result.json");
