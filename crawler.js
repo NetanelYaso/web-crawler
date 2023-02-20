@@ -21,7 +21,7 @@ const getImages = (href, depth, images = [], visitedPages = {}) => {
     const links = page.$eval('a').map(link => link.href) ?? [];
     console.log(links);
     const newImages = page.$eval('img').map(img => img.src) ?? [];
-    console.log(newImages) ;
+    console.log(newImages);
     return links.map(link => {
         if (visitedPages[link]) {
             return [];
