@@ -5,7 +5,7 @@ const browserObject = require('./browser');
 const scraperController = require('./pageController');
 
 let browserInstance = browserObject.startBrowser();
-scraperController(browserInstance)
+scraperController(browserInstance);
 
 const main = (imgUrl, initialHref, depth) => {
     const images = getImages(imgUrl, initialHref, depth).flat(depth);
@@ -18,10 +18,10 @@ const getImages = (href, depth, images = [], visitedPages = {}) => {
         return images;
     }
     const page = puppeteer.open(href)
-    const links = page.$eval('a').map(link => link.href) ?? []
+    const links = page.$eval('a').map(link => link.href) ?? [];
     console.log(links);
-    const newImages = page.$eval('img').map(img => img.src) ?? []
-    console.log(newImages);
+    const newImages = page.$eval('img').map(img => img.src) ?? [];
+    console.log(newImages) ;
     return links.map(link => {
         if (visitedPages[link]) {
             return [];
